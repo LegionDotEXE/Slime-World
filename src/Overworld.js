@@ -22,14 +22,33 @@ class Overworld extends Phaser.Scene {
     }
 
     create() {
+        // tilemap setup
+        this.map = this.make.tilemap({ key: 'map' })
+        const tileset = this.map.addTilesetImage('tiles', 'tiles')
+        
+        this.groundLayer = this.map.createLayer('ground', tileset, 0, 0)
+        this.objectsLayer = this.map.createLayer('objects', tileset, 0, 0)
+        this.objectsLayer.setCollisionByProperty({ collides: true })            // Enable collisions
+        
         // add slime
         this.slime = this.physics.add.sprite(32, 32, 'slime', 0)
         this.slime.body.setCollideWorldBounds(true)
+        this.physics.add.collider(this.slime, this.objectsLayer)
 
         // slime animation
+        this.anims.create({
+        key: 'slime-walk',
+        frames: this.anims.generateFrameNumbers('slime', { start: 0, end: 3 }),
+        frameRate: 10,  
+        repeat: -1      
+        })
 
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
+        this.add.text(10, 10, 'Press arrow keys to move', {
+        fill: '#ffffff',
+        fontSize: '11px'
+        });
 
     }
 
@@ -48,7 +67,11 @@ class Overworld extends Phaser.Scene {
             this.direction.y = 1
         }
 
-        this.direction.normalize()
-        this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        if (this.direction.length() > 0) {
+            this.direction.normalize()
+            this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        } else {
+            this.slime.setVelocity(0, 0)
+        }
     }
 }
