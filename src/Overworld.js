@@ -43,8 +43,14 @@ class Overworld extends Phaser.Scene {
         repeat: -1      
         })
 
+        // Camera setpu
+        this.cameras.main.startFollow(this.slime)
+        this.cameras.main.setZoom(1) 
+
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
+
+        // Extra
         this.add.text(10, 10, 'Press arrow keys to move', {
         fill: '#ffffff',
         fontSize: '11px'
