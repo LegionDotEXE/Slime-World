@@ -4,10 +4,9 @@ class Overworld extends Phaser.Scene {
     }
 
     init() {
-        this.VEL = 100  // slime velocity constant
+        this.VEL = 100      // slime velocity constant
 
-        this.score = 0;
-        this.scoreText = null;
+        this.score = 0;         // Added score
     }
 
     preload() {
