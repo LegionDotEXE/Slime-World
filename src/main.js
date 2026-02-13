@@ -12,7 +12,8 @@ let config = {
     physics: {
         default: "arcade",
         arcade: {
-            debug: true
+            debug: true,
+            gravity: {y: 0}     // Test for gravity less movement for top-down movement
         }
     },
     zoom: 2,

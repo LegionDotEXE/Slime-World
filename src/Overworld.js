@@ -5,6 +5,9 @@ class Overworld extends Phaser.Scene {
 
     init() {
         this.VEL = 100  // slime velocity constant
+
+        this.score = 0;
+        this.scoreText = null;
     }
 
     preload() {
@@ -13,6 +16,10 @@ class Overworld extends Phaser.Scene {
             frameWidth: 16,
             frameHeight: 16
         })
+
+        this.load.image('tiles', 'tiles.png')
+        
+        this.load.tilemapTiledJSON('map', 'map.json')
     }
 
     create() {
@@ -24,6 +31,7 @@ class Overworld extends Phaser.Scene {
 
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
+
     }
 
     update() {
